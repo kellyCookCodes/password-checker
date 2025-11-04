@@ -99,11 +99,11 @@ function validatePassword(pwd) {
         document.getElementById('weak-pwd').style.display = 'block'
     }
 
-    const icon = document.getElementById('strength-icon');
+    const icon = document.getElementById('strength-icon')
     if (score === 6) {
-        icon.textContent = '💪';
+        icon.textContent = '💪'
     } else {
-        icon.textContent = '🔒';
+        icon.textContent = '🔒'
     }
 
     const bar = document.getElementById('strength-bar')
