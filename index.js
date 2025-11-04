@@ -80,7 +80,7 @@ function validatePassword(pwd) {
     document.getElementById('weak-pwd').style.display = 'none'
 
     // no easy pwd check
-    const easyPwds = ['user123', 'admin123', 'password123', 'test123', '12345', 'qwerty123']
+    const easyPwds = ['user123', 'admin123', 'password123', 'test123', '12345', 'qwerty123', '1']
 
     const isNotEasy = !easyPwds.includes(pwd)
     const easyBadge = document.getElementById('no-easy-pwd-check')
