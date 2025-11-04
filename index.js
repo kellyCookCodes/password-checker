@@ -1,18 +1,21 @@
 function validatePassword(pwd) {
+
     // Check: Password is empty or null
     if (!pwd) {
         document.getElementById('invalid-pwd-alert').style.display = 'block'
         return
+    } else {
+        document.getElementById('invalid-pwd-alert').style.display = 'none'
     }
 
     let score = 0
 
-    // Check: 2. At least one lowercase character
     // flags
     let hasLowercaseChar = false
     let hasUppercaseChar = false
     let hasNumber = false
     let hasSpecialChar = false
+
     // a. Iterate through each character of the pasword string
     for (let i = 0; i < pwd.length; i++) {
         let char = pwd[i]
@@ -34,9 +37,9 @@ function validatePassword(pwd) {
     const lengthBadge = document.getElementById('length-check')
     const lengthContainer = document.getElementById('length-check-container')
     const lengthValid = pwd.length >= 8
-    lengthBadge.innerText = pwd.length >= 8 ? '✅' : '⚠️'
+    lengthBadge.innerText = lengthValid ? '✅' : '⚠️'
     lengthContainer.classList.remove('list-group-item-success', 'list-group-item-danger')
-    lengthContainer.classList.add(pwd.length >= 8 ? 'list-group-item-success' : 'list-group-item-danger')
+    lengthContainer.classList.add(lengthValid ? 'list-group-item-success' : 'list-group-item-danger')
     if (lengthValid) score++
 
     // lowercase check
@@ -72,23 +75,22 @@ function validatePassword(pwd) {
     if (hasSpecialChar) score++
 
     // str badge show
-    document.getElementById('strong-pwd').style.display =  'none'
-    document.getElementById('moderate-pwd').style.display =  'none'
-    document.getElementById('weak-pwd').style.display =  'none'
+    document.getElementById('strong-pwd').style.display = 'none'
+    document.getElementById('moderate-pwd').style.display = 'none'
+    document.getElementById('weak-pwd').style.display = 'none'
 
-    // no previous passwords check
+    // no easy pwd check
     const easyPwds = ['user123', 'admin123', 'password123', 'test123', '12345', 'qwerty123']
 
-    if(!easyPwds.includes(pwd)) {
-        document.getElementById('no-easy-pwd-check').innerText = '✅'
-        document.getElementById('no-easy-pwd-container').classList.add('list-group-item-success')
-        score++
-    } else {
-        document.getElementById('no-easy-pwd-check').innerText = '⚠️'
-        document.getElementById('no-easy-pwd-container').classList.add('list-group-item-danger')
-    }
-    
+    const isNotEasy = !easyPwds.includes(pwd)
+    const easyBadge = document.getElementById('no-easy-pwd-check')
+    const easyContainer = document.getElementById('no-easy-pwd-container')
+    easyBadge.innerText = isNotEasy ? '✅' : '⚠️'
+    easyContainer.classList.remove('list-group-item-success', 'list-group-item-danger')
+    easyContainer.classList.add(isNotEasy ? 'list-group-item-success' : 'list-group-item-danger')
+    if (isNotEasy) score++
 
+    // str badge show
     if (score === 6) {
         document.getElementById('strong-pwd').style.display = 'block'
     } else if (score >= 4) {
@@ -97,14 +99,27 @@ function validatePassword(pwd) {
         document.getElementById('weak-pwd').style.display = 'block'
     }
 
-    console.log("Password score: ", score);
+    const icon = document.getElementById('strength-icon');
+    if (score === 6) {
+        icon.textContent = '💪';
+    } else {
+        icon.textContent = '🔒';
+    }
+
+    const bar = document.getElementById('strength-bar')
+    bar.style.width = `${(score / 6) * 100}%`
+    bar.className = 'progress-bar bg-' + (score === 6 ? 'success' : score >= 4 ? 'warning' : 'danger')
+
+    bar.textContent = `${score}/6`
+
+    console.log("Password score: ", score)
 
 }
 
 const inputPassword = prompt("Enter your password to check its strength:")
 console.log(inputPassword)
 
-validatePassword(inputPassword)
+validatePassword(inputPassword);
 
 
 
