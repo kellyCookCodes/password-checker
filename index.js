@@ -123,7 +123,7 @@ function validatePassword(pwd) {
 const inputPassword = prompt("Enter your password to check its strength:")
 console.log(inputPassword)
 
-// call function with
+// call function with password input from user
 validatePassword(inputPassword);
 
 
