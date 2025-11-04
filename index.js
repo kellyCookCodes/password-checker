@@ -8,6 +8,7 @@ function validatePassword(pwd) {
         document.getElementById('invalid-pwd-alert').style.display = 'none'
     }
 
+    // sum of truthy checks
     let score = 0
 
     // flags
@@ -74,7 +75,7 @@ function validatePassword(pwd) {
     specialContainer.classList.add(hasSpecialChar ? 'list-group-item-success' : 'list-group-item-danger')
     if (hasSpecialChar) score++
 
-    // str badge show
+    // str badge no show
     document.getElementById('strong-pwd').style.display = 'none'
     document.getElementById('moderate-pwd').style.display = 'none'
     document.getElementById('weak-pwd').style.display = 'none'
@@ -99,6 +100,7 @@ function validatePassword(pwd) {
         document.getElementById('weak-pwd').style.display = 'block'
     }
 
+    // change icon if progress bar is full 6/6
     const icon = document.getElementById('strength-icon')
     if (score === 6) {
         icon.textContent = '💪'
@@ -106,6 +108,7 @@ function validatePassword(pwd) {
         icon.textContent = '🔒'
     }
 
+    // show score on progress bar
     const bar = document.getElementById('strength-bar')
     bar.style.width = `${(score / 6) * 100}%`
     bar.className = 'progress-bar bg-' + (score === 6 ? 'success' : score >= 4 ? 'warning' : 'danger')
@@ -116,9 +119,11 @@ function validatePassword(pwd) {
 
 }
 
+// password prompt
 const inputPassword = prompt("Enter your password to check its strength:")
 console.log(inputPassword)
 
+// call function with
 validatePassword(inputPassword);
 
 
