@@ -76,9 +76,22 @@ function validatePassword(pwd) {
     document.getElementById('moderate-pwd').style.display =  'none'
     document.getElementById('weak-pwd').style.display =  'none'
 
-    if (score === 5) {
+    // no previous passwords check
+    const easyPwds = ['user123', 'admin123', 'password123', 'test123', '12345', 'qwerty123']
+
+    if(!easyPwds.includes(pwd)) {
+        document.getElementById('no-easy-pwd-check').innerText = '✅'
+        document.getElementById('no-easy-pwd-container').classList.add('list-group-item-success')
+        score++
+    } else {
+        document.getElementById('no-easy-pwd-check').innerText = '⚠️'
+        document.getElementById('no-easy-pwd-container').classList.add('list-group-item-danger')
+    }
+    
+
+    if (score === 6) {
         document.getElementById('strong-pwd').style.display = 'block'
-    } else if (score >= 3) {
+    } else if (score >= 4) {
         document.getElementById('moderate-pwd').style.display = 'block'
     } else {
         document.getElementById('weak-pwd').style.display = 'block'
